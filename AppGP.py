@@ -14,6 +14,7 @@ class CustomJSONEncoder(json.JSONEncoder):
             return obj.__dict__
         except AttributeError:
             return str(obj)
+
 class PineCone_Vdb:
     def __init__(self, api_key, index_name="verse-index", dimensions=768, cloud="aws", region="us-west-2"):
         self.pc = Pinecone(api_key=api_key)
@@ -31,8 +32,10 @@ class PineCone_Vdb:
         else:
             print(f"Index '{index_name}' already exists. Connecting to it.")
         self.index = self.pc.Index(index_name)
+
     def describe_index_stats(self):
         return self.index.describe_index_stats()
+
     def get_knn(self, k, vector, namespace="ns1"):
         query = self.index.query(
             vector=vector,
@@ -42,8 +45,10 @@ class PineCone_Vdb:
             namespace=namespace
         )
         return query
+
 tokenizer = AutoTokenizer.from_pretrained("pourmand1376/arabic-quran-nahj-sahife")
 model = AutoModel.from_pretrained("pourmand1376/arabic-quran-nahj-sahife", output_hidden_states=True)
+
 def get_sentence_embeddingnew2(sentence):
     if not sentence or not isinstance(sentence, str):
         return np.zeros(model.config.hidden_size)
@@ -56,20 +61,28 @@ def get_sentence_embeddingnew2(sentence):
     )
     with torch.no_grad():
         outputs = model(**inputs)
-    last_hidden_state = outputs.last_hidden_state  
-    embeddings = torch.mean(last_hidden_state, dim=1)  
+    last_hidden_state = outputs.last_hidden_state  # shape: (batch_size, seq_length, hidden_size)
+    embeddings = torch.mean(last_hidden_state, dim=1)  # shape: (batch_size, hidden_size)
     return embeddings.numpy().flatten()
+
 whisper_processor = WhisperProcessor.from_pretrained("tarteel-ai/whisper-base-ar-quran")
 whisper_model = WhisperForConditionalGeneration.from_pretrained("tarteel-ai/whisper-base-ar-quran")
+
 def transcribe_audio(file_path):
+    """
+    Loads a WAV audio file, transcribes it using Whisper, and returns the transcription text.
+    """
+    # Load audio at 16kHz sampling rate using librosa
     audio_waveform, sr = librosa.load(file_path, sr=16000)
     input_features = whisper_processor(audio_waveform, sampling_rate=sr, return_tensors="pt").input_features
     with torch.no_grad():
         predicted_ids = whisper_model.generate(input_features)
     transcription = whisper_processor.batch_decode(predicted_ids, skip_special_tokens=True)[0]
     return transcription
+
 app = Flask(__name__)
 app.json_encoder = CustomJSONEncoder
+
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html>
@@ -206,5 +219,6 @@ def query_audio():
         response=json.dumps(response_data, default=str),
         mimetype='application/json'
     ), 200
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
