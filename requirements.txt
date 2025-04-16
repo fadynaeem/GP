@@ -12,4 +12,4 @@ numpy
 torch
 librosa
 transformers
-pinecone-client
+pinecone
