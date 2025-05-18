@@ -1,0 +1,8 @@
+flask==2.3.3
+python-dotenv==1.0.0
+torch==2.0.1
+transformers==4.32.1
+librosa==0.10.1
+pinecone-client==2.2.2
+numpy==1.24.4
+soundfile==0.12.1
