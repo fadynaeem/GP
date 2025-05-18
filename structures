@@ -1,0 +1,22 @@
+quran_verse_app/
+│
+├── app.py                     # Main application entry point
+├── config.py                  # Configuration settings
+│
+├── controllers/
+│   ├── __init__.py
+│   └── verse_controller.py    # API endpoints
+│
+├── services/
+│   ├── __init__.py
+│   ├── audio_service.py       # Audio transcription service
+│   ├── embedding_service.py   # Text embedding service
+│   └── vector_db_service.py   # Pinecone vector database service
+│
+├── models/
+│   ├── __init__.py
+│   └── response_models.py     # Response data models
+│
+└── utils/
+    ├── __init__.py
+    └── custom_json_encoder.py # Custom JSON encoder
