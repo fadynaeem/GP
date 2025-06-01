@@ -4,7 +4,7 @@ An AI-powered toolkit for Quranic verse recognition, including audio processing,
 
 ## Features
 
-- **Verse Recognition**: Identify Quranic verses from text or audio input
+- **Verse Recognition**: Identify Quranic verses from audio input
 - **Reader Identification**: Detect and verify Quran reciters
 - **Audio Processing**: Convert Quranic recitations to text
 - **Embedding Generation**: Create semantic vector representations of verses
@@ -15,7 +15,7 @@ An AI-powered toolkit for Quranic verse recognition, including audio processing,
 - **Core Language**: Python
 - **Audio Transcription**: OpenAI Whisper / Hugging Face Transformers
 - **Audio Embeddings**: OpenL3 (for audio feature extraction)
-- **Text Embeddings**: Sentence Transformers (e.g., AraBERT, Arabic BERT)
+- **Text Embeddings**: Sentence Transformers
 - **Vector Databases**: Pinecone / FAISS (for efficient similarity search)
 - **ML Frameworks**: PyTorch / TensorFlow
 
