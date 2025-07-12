@@ -1,6 +1,6 @@
 # Quran Recognition
 
-An AI-powered toolkit for Quranic verse recognition, including audio processing, text analysis, and reader identification.
+An AI-driven mobile app that instantly recognizes any Quran reciter’s voice and accurately pinpoints the exact Surah and verse being recited.
 
 ## Features
 
