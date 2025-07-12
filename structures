@@ -1,22 +1,39 @@
-quran_verse_app/
-│
-├── app.py                     # Main application entry point
-├── config.py                  # Configuration settings
+QuranRecognition_app/
+├── app.py                    # Main Flask application entry point
+├── config.py                 # Configuration settings
+├── requirements.txt          # Python dependencies
+├── .env.example              # Environment variables example
+├── .gitignore                # Git ignore file
+├── README.md                 # Project documentation
+├── CustomJSONEncoder.py      # Custom JSON encoder (legacy)
+├── controller.py             # Legacy controller (for backward compatibility)
+├── init.py                   # Legacy init file
 │
 ├── controllers/
 │   ├── __init__.py
-│   └── verse_controller.py    # API endpoints
+│   ├── audio_controller.py    # handles Quran audio recognition
+│   └── text_controller.py     # handles Quran text search
 │
 ├── services/
 │   ├── __init__.py
-│   ├── audio_service.py       # Audio transcription service
+│   ├── audio_service.py       # Audio processing service
 │   ├── embedding_service.py   # Text embedding service
-│   └── vector_db_service.py   # Pinecone vector database service
+│   └── vector_db_service.py   # Vector database service
 │
 ├── models/
 │   ├── __init__.py
 │   └── response_models.py     # Response data models
 │
-└── utils/
+├── utils/
+│   ├── __init__.py
+│   └── custom_json_encoder.py  # JSON encoding utilities
+│
+├── vdb/                        # Legacy VDB module (backward compatibility)
+│   ├── __init__.py
+│   ├── pinecone_vdb.py        # Legacy Pinecone wrapper
+│   └── similarity_search.py   # Legacy similarity search
+│
+└── preprocessing/             # Legacy preprocessing module 
     ├── __init__.py
-    └── custom_json_encoder.py # Custom JSON encoder
+    ├── audio.py               # Legacy audio preprocessing
+    └── text.py                # Legacy text preprocessing
