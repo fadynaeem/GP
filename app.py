@@ -1,23 +1,15 @@
 from flask import Flask, request, jsonify
 from controller import AudioAnalysisController
 from config import get_config
+from req_handling import handling
 config = get_config()
 app = Flask(__name__)
 controller = AudioAnalysisController(config.AUDIO_API_KEY, config.API_KEY)
-def get_audio_bytes_from_request(req):
-    if not req.files and not req.data:
-        return None, {"error": "No audio data received"}, 400
-    if 'audio' in req.files:
-        audio_bytes = req.files['audio'].read()
-    else:
-        audio_bytes = req.get_data()
-    if not audio_bytes:
-        return None, {"error": "Empty audio data"}, 400
-    return audio_bytes, None, None
-    
+
+#//
 @app.route('/query', methods=['POST'])
 def analyze():
-    audio_bytes, error_response, status = get_audio_bytes_from_request(request)
+    audio_bytes, error_response, status =handling.get_audio_bytes_from_request(request)
     if error_response:
         return jsonify(error_response), status
     response = controller.handle_query(audio_bytes)
